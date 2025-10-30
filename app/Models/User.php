@@ -19,8 +19,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
+    'email',
+    'password',
+    'role',
     ];
 
     /**
@@ -42,4 +43,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function coursesTaught(){
+        return $this->hasMany(Course::class ,"teacher_id");
+    }
+    public function coursesEnrolled(){
+        return $this->belongsToMany(Course::class,"enrollments");
+    }
 }
