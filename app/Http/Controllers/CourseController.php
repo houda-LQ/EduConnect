@@ -11,9 +11,13 @@ class CourseController extends Controller
         $request->validate([
             "title"=>"required|string|max:200",
              "description"=>"nullable|string",
-            //  "teacher_id"=>"required|exists:users,id"
         ]);
-        $course=Course::create($request->all());
+        
+      $course = Course::create([
+        "title" => $request->title,
+        "description" => $request->description,
+        "teacher_id" => $request->user()->id, 
+    ]);
         return response()->json($course,201);
     }
 

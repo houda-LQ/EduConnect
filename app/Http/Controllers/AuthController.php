@@ -15,12 +15,15 @@ class AuthController extends Controller
             "name"=>"required|string|max:10",
             "email"=>"required|string|email|unique:users",
             "password"=>"required|string|min:8|confirmed",
+            "role"=>"required|in:student,teacher,admin",
+
 
         ]);
         $user=User::create([
             "name"=> $request->name,
             "email"=> $request->email,
             "password"=> Hash::make($request->password),
+            "role"=> $request->role,
 
         ]);
         return response()->json(["message"=>"user registered successfully",
