@@ -23,4 +23,18 @@ class EnrollmentController extends Controller
 
     return response()->json(['message' => 'Inscription réussie !']);
 }
+
+
+ public function myCourses($user_id)
+    {
+        $user = User::with('coursesEnrolled')->findOrFail($user_id);
+
+        return response()->json([
+            'user' => $user->name,
+            'courses' => $user->coursesEnrolled
+        ]);
+    }
 }
+
+
+
